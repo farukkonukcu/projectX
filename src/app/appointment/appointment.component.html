@@ -1,0 +1,69 @@
+<div class="bcontainer">
+    <div class="container">
+        <div class="form">
+            <h1 class="header">Randevularım</h1>
+
+            <div class="box3 overflow">
+                @for (appointment of appointmentList; track $index)
+                {
+                <div class="box2 input">
+                    <p>{{ appointment.date }} - {{ appointment.serviceId }}</p>
+                    @if(appointment.statu == "Pending"){
+                    <p>Bekleniyor</p>
+                    }
+                    @else if(appointment.statu == "Approved"){
+                    <p>Onaylandı</p>
+                    }
+                    @else if(appointment.statu == "Canceled"){
+                    <p>İptal Edildi</p>
+                    }
+
+                    @if (appointment.statu != "Canceled") {
+                    <button class="del-btn" (click)="cancel(appointment.id)">İptal Et</button>
+                    }
+                    @else {
+                    <p></p>
+                    }
+                </div>
+
+                }
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <form class="form" [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+            <h1 class="header">Randevu Oluştur</h1>
+            <div class="box3">
+                <div class="box">
+                    <input type="text" class="input" id="service" formControlName="service" name="service" required>
+                    <label for="service" class="placeholder">Hizmetler</label>
+                    @if(appointmentForm.get("service")?.hasError('required') &&
+                    appointmentForm.get("service")?.touched){
+                    <p class="error">Boş geçilemez</p>
+                    }
+                </div>
+                <div class="box">
+                    <input type="date" class="input" id="date" formControlName="date" name="date" required>
+                    <label for="date" class="placeholder">Tarih</label>
+                    @if(appointmentForm.get("date")?.hasError('required') && appointmentForm.get("date")?.touched){
+                    <div class="error">Boş geçilemez</div>
+                    }
+                </div>
+                <div class="box">
+                    <input type="time" class="input" id="time" formControlName="time" name="time" required>
+                    <label for="time" class="placeholder">Saat</label>
+                    @if(appointmentForm.get("time")?.hasError('required') && appointmentForm.get("time")?.touched){
+                    <div class="error">Boş geçilemez</div>
+                    }
+                </div>
+
+
+            </div>
+            <div class="btn-box">
+                <button class="button button1" type="submit" [disabled]="!appointmentForm.valid">Randevu
+                    Oluştur</button>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,74 @@
+<div class="container">
+    <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <h1 class="header">Kayıt Ol</h1>
+        <div class="box3">
+            <div class="box2">
+                <div class="box">
+                    <input type="text" class="input" id="name" formControlName="name" required>
+                    <label for="name" class="placeholder">Ad Soyad</label>
+                    @if(registerForm.get("name")?.hasError('required') && registerForm.get("name")?.touched){
+                    <p class="error">Boş geçilemez</p>
+                    }
+                </div>
+                <div class="box">
+                    <input type="text" class="input" id="email" formControlName="email" required>
+                    <label for="email" class="placeholder">Email</label>
+                    @if(registerForm.get("email")?.hasError('email') && registerForm.get("email")?.touched){
+                    <p class="error">Lütfen mail adresinizi doğru formatta giriniz</p>
+                    }
+                    @if(registerForm.get("email")?.hasError('required') && registerForm.get("email")?.touched){
+                    <p class="error">Boş geçilemez</p>
+                    }
+                </div>
+            </div>
+            <div class="box2">
+                <div class="box">
+                    <input type="text" class="input" id="tellnumber" formControlName="tellnumber" required>
+                    <label for="tellnumber" class="placeholder">Telefon Numarası</label>
+                    @if(registerForm.get("tellnumber")?.hasError('required') && registerForm.get("tellnumber")?.touched){
+                    <p class="error">Boş geçilemez</p>
+                    }
+                </div>
+                <div class="box">
+                    <input type="text" class="input" id="address" formControlName="address" required>
+                    <label for="address" class="placeholder">Adres</label>
+                    @if(registerForm.get("address")?.hasError('required') && registerForm.get("address")?.touched){
+                    <p class="error">Boş geçilemez</p>
+                    }
+                </div>
+            </div>
+            <div class="box2">
+                <div class="box">
+                <input type="password" class="input" id="password" formControlName="password" name="password" required>
+                <label for="password" class="placeholder">Şifre</label>
+                @if(registerForm.get("password")?.hasError('required') && registerForm.get("password")?.touched){
+                <div class="error">Boş geçilemez</div>
+                }@else if(registerForm.get("password")?.hasError('minlength') && registerForm.get("password")?.touched){
+                <div class="error">En az 6 karakter</div>
+                }@else if(registerForm.get("password")?.hasError('passwordStrenght') && registerForm.get("password")?.touched){
+                <div class="error">Geçersiz karakter</div>
+                }
+            </div>
+            <div class="box">
+                <input type="password" class="input" id="password2" formControlName="password2" name="password2"
+                    required>
+                <label for="password2" class="placeholder">Tekrar Şifre</label>
+                @if(registerForm.get("password2")?.hasError('required') && registerForm.get("password2")?.touched){
+                <div class="error">Boş geçilemez</div>
+                }@else if(registerForm.get("password2")?.hasError('minlength') && registerForm.get("password2")?.touched){
+                <div class="error">En az 6 karakter</div>
+                }@else if(registerForm.hasError('missmatch') && registerForm.get("password2")?.touched){
+                <div class="error">Şifreler aynı değil</div>
+                }@else ifif(registerForm.get("password")?.hasError('passwordStrenght') && registerForm.get("password2")?.touched){
+                <div class="error">Geçersiz karakter</div>
+                }
+            </div>
+        </div>
+        
+    </div>
+        <div class="btn-box">
+            <button class="button button2" routerLink="/login">Giriş Yap</button>
+            <button class="button button1" type="submit" [disabled]="!registerForm.valid">Kayıt Ol</button>
+        </div>
+    </form>
+</div>

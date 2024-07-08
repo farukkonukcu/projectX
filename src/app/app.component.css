@@ -1,0 +1,34 @@
+.container{
+    height: 100vh;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #3f962b;
+    height: 80px;
+    width: 100%;
+    align-items: center;
+    padding: 0 15%;
+    position:fixed;
+    top: 0;
+    z-index: 10;
+}
+
+a{
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.logo {
+    font-size: 30px;
+}
+
+.links{
+    display: flex;
+    align-items: center;
+}
+
+.links>a {
+    margin: 0 10px
+}
