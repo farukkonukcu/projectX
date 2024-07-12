@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { NavComponent } from '../nav/nav.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, NavComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -42,6 +43,7 @@ export class RegisterComponent {
       });
     }
   }
+
   passwordValidators(p1: string, p2: string) {
     return (control: AbstractControl) => {
       const password1 = control.get(p1)?.value;
@@ -49,7 +51,8 @@ export class RegisterComponent {
 
       if (password1 === password2) {
         return null;
-      } else {
+      }
+      else {
         return { missmatch: true };
       }
     };

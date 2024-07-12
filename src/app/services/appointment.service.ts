@@ -18,10 +18,13 @@ export class AppointmentService {
   cancel(appointmentId: number): Observable<any> {
     return this.http.post<any>(this.baseUrl + "cancelappointment", appointmentId);
   }
-  
 
-  getAllAppointment(email: string): Observable<any[]> {
+  getMyAppointment(email: string): Observable<any[]> {
     let params = new HttpParams().set('email', email);
-    return this.http.get<any>(this.baseUrl + "getallappointment", { params });
+    return this.http.get<any>(this.baseUrl + "getmyappointment", { params });
+  }
+
+  getAllAppointment(): Observable<any[]> {
+    return this.http.get<any>(this.baseUrl + "getallappointment");
   }
 }

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { log } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +12,11 @@ export class AuthService {
   public activeCustomer: any = "";
   constructor(private http: HttpClient, private router: Router) { }
 
-  login(customer: any, email:string) {
+  login(customer: any, email: string) {
     return this.http.post(this.baseUrl + "login", customer).subscribe(req => {
       this.activeCustomer = email;
       console.log(req);
-      
+
       this.router.navigateByUrl("/appointment");
     });
   }
@@ -29,5 +27,6 @@ export class AuthService {
 
   logout() {
     this.activeCustomer = "";
+    this.router.navigateByUrl("/login");
   }
 }

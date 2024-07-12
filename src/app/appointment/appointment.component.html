@@ -1,4 +1,6 @@
 <div class="bcontainer">
+    
+    <app-nav></app-nav>
     <div class="container">
         <div class="form">
             <h1 class="header">Randevularım</h1>
@@ -8,10 +10,7 @@
                 {
                 <div class="box2 input">
                     <p>{{ appointment.date }} - {{ appointment.serviceId }}</p>
-                    @if(appointment.statu == "Pending"){
-                    <p>Bekleniyor</p>
-                    }
-                    @else if(appointment.statu == "Approved"){
+                    @if(appointment.statu == "Approved"){
                     <p>Onaylandı</p>
                     }
                     @else if(appointment.statu == "Canceled"){
@@ -30,31 +29,46 @@
             </div>
         </div>
     </div>
+
     <div class="container">
         <form class="form" [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
             <h1 class="header">Randevu Oluştur</h1>
             <div class="box3">
                 <div class="box">
-                    <input type="text" class="input" id="service" formControlName="service" name="service" required>
+                    <select type="text" class="input" id="service" formControlName="service" name="service" >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
                     <label for="service" class="placeholder">Hizmetler</label>
                     @if(appointmentForm.get("service")?.hasError('required') &&
                     appointmentForm.get("service")?.touched){
                     <p class="error">Boş geçilemez</p>
                     }
                 </div>
-                <div class="box">
-                    <input type="date" class="input" id="date" formControlName="date" name="date" required>
-                    <label for="date" class="placeholder">Tarih</label>
-                    @if(appointmentForm.get("date")?.hasError('required') && appointmentForm.get("date")?.touched){
-                    <div class="error">Boş geçilemez</div>
-                    }
-                </div>
-                <div class="box">
-                    <input type="time" class="input" id="time" formControlName="time" name="time" required>
-                    <label for="time" class="placeholder">Saat</label>
-                    @if(appointmentForm.get("time")?.hasError('required') && appointmentForm.get("time")?.touched){
-                    <div class="error">Boş geçilemez</div>
-                    }
+                <div class="box2">
+                    <div class="box">
+                        <select type="date" class="input" id="date" formControlName="date" name="date" >
+                            @for (date of dateList; track $index){
+                            <option value="{{date}}">{{date}}</option>
+                            }
+                        </select>
+                        <label for="date" class="placeholder">Tarih</label>
+                        @if(appointmentForm.get("date")?.hasError('required') && appointmentForm.get("date")?.touched){
+                        <div class="error">Boş geçilemez</div>
+                        }
+                    </div>
+                    <div class="box">
+                        <select type="time" class="input" id="time" formControlName="time" name="time" >
+                            @for (item of hourList; track $index) {
+                                <option value="{{item}}">{{item}}</option>
+                            }
+                        </select>
+                        <label for="time" class="placeholder">Saat</label>
+                        @if(appointmentForm.get("time")?.hasError('required') && appointmentForm.get("time")?.touched){
+                        <div class="error">Boş geçilemez</div>
+                        }
+                    </div>
                 </div>
 
 
@@ -65,5 +79,4 @@
             </div>
         </form>
     </div>
-
 </div>

@@ -1,20 +1,21 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { Router } from 'express';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
-import { NavComponent } from '../nav/nav.component';
+import { NavComponent } from '../../nav/nav.component';
+import { AdminAuthService } from '../../services/admin-auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-admin-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, NavComponent],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  imports: [ReactiveFormsModule, NavComponent],
+  templateUrl: './admin-login.component.html',
+  styleUrl: './admin-login.component.css'
 })
-export class LoginComponent {
+export class AdminLoginComponent {
 
-  constructor(private auth: AuthService, private router: Router) { }
+
+  constructor(private auth: AdminAuthService, private router: Router) { }
 
   loginForm = new FormGroup({
     email: new FormControl('asd@asd', [Validators.required, Validators.email]),
