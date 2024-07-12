@@ -9,14 +9,12 @@ export class AuthService {
 
   private baseUrl = 'https://localhost:7138/';
 
-  public activeCustomer: any = "";
   constructor(private http: HttpClient, private router: Router) { }
 
   login(customer: any, email: string) {
     return this.http.post(this.baseUrl + "login", customer).subscribe(req => {
-      this.activeCustomer = email;
       console.log(req);
-
+      localStorage.setItem('activeCustomer', JSON.stringify(email))
       this.router.navigateByUrl("/appointment");
     });
   }
@@ -25,8 +23,17 @@ export class AuthService {
     return this.http.post(this.baseUrl + "register", customer);
   }
 
+  activeCustomer(){
+    if(localStorage.getItem('activeCustomer') == null){
+      return "";
+    }
+    else{
+      return JSON.parse(localStorage.getItem('activeCustomer')!);
+    }
+  }
+
   logout() {
-    this.activeCustomer = "";
+    localStorage.removeItem('activeCustomer')
     this.router.navigateByUrl("/login");
   }
 }

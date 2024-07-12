@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class AppointmentService {
 
   private baseUrl = 'https://localhost:7138/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: AuthService) { }
 
   create(appointment: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + "createappointment", appointment);
@@ -19,8 +20,8 @@ export class AppointmentService {
     return this.http.post<any>(this.baseUrl + "cancelappointment", appointmentId);
   }
 
-  getMyAppointment(email: string): Observable<any[]> {
-    let params = new HttpParams().set('email', email);
+  getMyAppointment(): Observable<any[]> {
+    let params = new HttpParams().set('email', this.auth.activeCustomer());
     return this.http.get<any>(this.baseUrl + "getmyappointment", { params });
   }
 

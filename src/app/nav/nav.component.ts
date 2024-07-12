@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-nav',
@@ -10,7 +11,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './nav.component.css'
 })
 export class NavComponent {
-
   constructor(public auth: AuthService) { }
 
   logout() {

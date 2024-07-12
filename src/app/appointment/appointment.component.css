@@ -19,7 +19,7 @@
 
 .del-btn{
     display: inline-block;
-    background-color: red;
+    background-color: rgb(254, 87, 87);
     padding: 9px;
     cursor: pointer;
     border-radius: 3px;

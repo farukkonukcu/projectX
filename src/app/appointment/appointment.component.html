@@ -1,5 +1,5 @@
 <div class="bcontainer">
-    
+
     <app-nav></app-nav>
     <div class="container">
         <div class="form">
@@ -18,13 +18,12 @@
                     }
 
                     @if (appointment.statu != "Canceled") {
-                    <button class="del-btn" (click)="cancel(appointment.id)">İptal Et</button>
+                    <button class="del-btn" (click)="cancel(appointment.appointmentId)">İptal Et</button>
                     }
                     @else {
                     <p></p>
                     }
                 </div>
-
                 }
             </div>
         </div>
@@ -35,7 +34,7 @@
             <h1 class="header">Randevu Oluştur</h1>
             <div class="box3">
                 <div class="box">
-                    <select type="text" class="input" id="service" formControlName="service" name="service" >
+                    <select type="text" class="input" id="service" formControlName="service" name="service">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -48,7 +47,7 @@
                 </div>
                 <div class="box2">
                     <div class="box">
-                        <select type="date" class="input" id="date" formControlName="date" name="date" >
+                        <select type="date" class="input" id="date" formControlName="date" name="date">
                             @for (date of dateList; track $index){
                             <option value="{{date}}">{{date}}</option>
                             }
@@ -59,9 +58,9 @@
                         }
                     </div>
                     <div class="box">
-                        <select type="time" class="input" id="time" formControlName="time" name="time" >
+                        <select type="time" class="input" id="time" formControlName="time" name="time">
                             @for (item of hourList; track $index) {
-                                <option value="{{item}}">{{item}}</option>
+                            <option value="{{item}}">{{item}}</option>
                             }
                         </select>
                         <label for="time" class="placeholder">Saat</label>

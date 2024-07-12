@@ -20,13 +20,13 @@ export class AppointmentComponent {
   appointmentList: any[] = [];
 
   appointmentForm = new FormGroup({
-    service: new FormControl(''),
-    date: new FormControl(''),
-    time: new FormControl('')
+    service: new FormControl('2'),
+    date: new FormControl('30.07.2024'),
+    time: new FormControl('12:00')
   })
 
   constructor(private appointment: AppointmentService, private auth: AuthService, private router: Router) {
-    this.appointment.getMyAppointment(auth.activeCustomer).subscribe(data => {
+    this.appointment.getMyAppointment().subscribe(data => {
       this.appointmentList = data;
       console.log(this.appointmentList);
 
@@ -52,7 +52,6 @@ export class AppointmentComponent {
 
     return dates;
   }
-
   getHours() {
 
     const startDate = new Date();
@@ -69,12 +68,11 @@ export class AppointmentComponent {
     }
     return hours;
   }
-
   cancel(appointmentId: number) {
-    this.appointment.cancel(appointmentId).subscribe(request => {
-      console.log(appointmentId)
+    this.appointment.cancel(appointmentId).subscribe(() => {
 
-      this.appointment.getMyAppointment(this.auth.activeCustomer).subscribe(data => {
+      console.log(appointmentId)
+      this.appointment.getMyAppointment().subscribe(data => {
         this.appointmentList = data;
 
       })
@@ -85,18 +83,17 @@ export class AppointmentComponent {
     if (this.appointmentForm.valid) {
 
       const formValues = this.appointmentForm.value;
-      const [datePart, timePart] = formValues.date!.split('T');
+      const [datePart, time] = formValues.date!.split('T');
       const [day, month, year] = datePart.split('.');
 
-      const formattedDate = `${year}-${month}-${day}T${this.appointmentForm.value.time}:00`;
       const credentials = {
-        customerEmail: this.auth.activeCustomer,
+        customerEmail: this.auth.activeCustomer(),
         serviceId: formValues.service,
-        data: formattedDate
+        date: `${year}-${month}-${day}T${this.appointmentForm.value.time}:00`
       };
 
       this.appointment.create(credentials).subscribe(request => {
-        this.appointment.getMyAppointment(this.auth.activeCustomer).subscribe(data => {
+        this.appointment.getMyAppointment().subscribe(data => {
           this.appointmentList = data;
           console.log(data);
 

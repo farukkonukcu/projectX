@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { Router } from 'express';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NavComponent } from '../../nav/nav.component';
@@ -15,7 +14,7 @@ import { AdminAuthService } from '../../services/admin-auth.service';
 export class AdminLoginComponent {
 
 
-  constructor(private auth: AdminAuthService, private router: Router) { }
+  constructor(private adminAuth: AdminAuthService, private router: Router) { }
 
   loginForm = new FormGroup({
     email: new FormControl('asd@asd', [Validators.required, Validators.email]),
@@ -30,7 +29,7 @@ export class AdminLoginComponent {
         password: this.loginForm.value.password
       };
 
-      this.auth.login(credentials, this.loginForm.value.email!);
+      this.adminAuth.login(credentials, this.loginForm.value.email!);
     }
   }
 }

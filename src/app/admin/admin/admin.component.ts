@@ -9,7 +9,10 @@ import { AdminAuthService } from '../../services/admin-auth.service';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent {
-  constructor(public auth: AdminAuthService){
+  constructor(public adminAuth: AdminAuthService){
 
+  }
+  logout(){
+    this.adminAuth.logout();
   }
 }

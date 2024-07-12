@@ -3,56 +3,23 @@
         <div class="links">
             <a routerLink="home" class="logo">KUAFÖR</a>
             <a routerLink="home">AnaSayfa</a>
-            @if (this.auth.activeUser == "")
-            {
-            <a routerLink="/login">Randevu</a>
-            }
-            @else {
-
-            <a routerLink="/appointment">Randevu</a>
-            }
             <a>Hizmetler</a>
             <a>İletişim</a>
             <a>Hakkımızda</a>
         </div>
         <div class="links">
-            @if (this.auth.activeUser == "")
+            @if (this.adminAuth.activeUser == "")
             {
-            <a routerLink="/admin/login">Giriş Yap</a>
+            <a routerLink="/adminlogin">Giriş Yap</a>
             }
             @else {
-            <p>{{this.auth.activeUser}}</p>
-            <a routerLink="/admin/login" (click)="logout()">Çıkış Yap</a>
+            <p>{{this.adminAuth.activeUser}}</p>
+            <a routerLink="/adminlogin" (click)="logout()">Çıkış Yap</a>
             }
         </div>
     </nav>
     <div class="form">
         <h1 class="header">Randevular</h1>
 
-        <div class="box3 overflow">
-            @for (appointment of appointmentList; track $index)
-            {
-            <div class="box2 input">
-                <p>{{ appointment.date }} - {{ appointment.serviceId }}</p>
-                @if(appointment.statu == "Pending"){
-                <p>Bekleniyor</p>
-                }
-                @else if(appointment.statu == "Approved"){
-                <p>Onaylandı</p>
-                }
-                @else if(appointment.statu == "Canceled"){
-                <p>İptal Edildi</p>
-                }
-
-                @if (appointment.statu != "Canceled") {
-                <button class="del-btn" (click)="cancel(appointment.id)">İptal Et</button>
-                }
-                @else {
-                <p></p>
-                }
-            </div>
-
-            }
-        </div>
     </div>
 </div>
